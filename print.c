@@ -2,10 +2,11 @@
 #include <stdio.h>
 
 /**
- * _printf - return number of characters printed
+ * _printf - custom printf that produces
+ *          output according to a format
  * @format: character string
  *
- * Return: return number of characters rpinted excluding
+ * Return: number of characters printed excluding
  * null bytes
  */
 
@@ -15,7 +16,7 @@ int _printf(const char *format, ...)
 
 	for (int index = 0; index < n; index++)
 	{
-		str = char *;
+		str = char*;
 		if (str == NULL)
 			printf("(nil)");
 		else
