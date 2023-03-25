@@ -1,88 +1,88 @@
-.TH _printf 3 "27 February 2018" "1.0" "custom man page"
+.TH _PRINTF 3 "October 2018" "0.1" "Holberton School 0x10. C - _printf"
 .SH NAME
-.B _printf
-- formatted output conversion
+.B _printf\fR \- formatted output conversion
 .SH SYNOPSIS
-.B #include "holberton.h"
-.sp
-int _printf(const char *format, ...);
+.B #include \fB"main.h"
+
+.B int printf(const char *\fIformat\fB, ...);
 .SH DESCRIPTION
-The function printf() writes output to
-.I stdout,
-the standard output stream. It writes the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length argument facilities of stdarg(3)) are converted for output.
-.SS Return value
-Upon successful return, this function returns the number of characters printed (excluding the null byte used to end output to strings).
-If an output error is encountered, a negative value is returned.
-.SS Format of the format string
-The format string is a character string, beginning and ending in its initial shift state, if any. The format string is composed of zero or more directives: ordinary characters (not %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments. Each conversion specification is introduced by the character %.
-.I conversion specifier.
-.SS The flag characters
-.SS The field width
-.SS The precision
-.SS The length modifier
-.SS The conversion specifier
-A character that specifies the type of conversion to be applied. The conversion specifiers and their meanings are:
-.sp
-b      The
-.I int
-argument is converted to binary as characters, and the result is written.
-.sp
-c      The
-.I int
-argument is converted to an unsigned char, and the resulting character is written.
-.sp
-d, i   The
-.I int
-argument is converted to signed decimal notation.
-.sp
-o      The
-.I int
-argument is converted to octal as characters, and the result is written.
-.sp
-r      The
-.I const char *
-argument characters are all printed in reverse.
-.sp
-R      The
-.I const char *
-argument is encrypted shifting each letter 13 letters down the alphabet. rot13
-.sp
-s
-.RS
-The
-.I const char *
-argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0').
-.RE
-.sp
-%      A '%' is written. No argument is converted. The complete conversion specification is '%%'.
-.SH CONFORMING TO
-The printf() function conforms to C89.
-.SH NOTES
-This custom _printf function does not yet handle more
-.I flags, field width, precision,
-or
-.I length modifiers.
-.SH EXAMPLE
-To print strings and characters:
-.sp
-.RS
-#include <(our files)>
-.RE
-.RS
-_printf("Let's print %c %s\\n", 'a', "string");
-.RE
-.sp
-To print decimal numbers and integers:
-.sp
-.RS
-#include <(our files)>
-.RE
-.RS
-_printf("Max int is %d and min int is %i\\n", 2147483647, -2147483648);
-.RE
+The function
+\fB_printf()\fR writes output to \fIstdout\fR, the standard output. The function writes the output under the control of a \fIformat\fR string that specifies how subsequent arguments (accessed via the variable-length argument facilities of stdarg) are converted for output.
+
+.B Return value
+
+Upon successful return, \fB_printf()\fR returns the number of characters printed (excluding the null byte used to end output to strings).
+
+If an output error is encountered, -1 is returned.
+
+.B Format of the format string
+
+The format string is a constant character string composed of zero or more directives: ordinary characters (not \fB%\fR) which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching zero or more subsequent arguments. Conversion specification is introduced by the character \fB%\fR and ends with a \fIconversion specifier\fR. The arguments must correspond with the conversion specifier, and are used in the order given.
+
+.B The conversion specifier
+
+A character that specifies the type of conversion to be applied. The conversion specifiers and their meaning are:
+
+.B d, i
+
+The \fIint\fR argument is converted to signed decimal notation.
+
+.B b
+
+The \fIunsigned int\fR argument is converted to binary.
+
+.B o, u, x, X
+
+The \fIunsigned int\fR argument is converted to unsigned octal (\fBo\fR), unsigned decimal (\fBu\fR), or unsigned hexadecimal (\fBx\fR and \fBX\fR) notation. The letters \fBabcdef\fR are used for \fBx\fR conversions; the letters \fBABCDEF\fR are used for \fBX\fR conversions.
+
+.B c
+
+The \fIint\fR argument is converted to an \fIunsigned char\fR, and the resulting character is written.
+
+.B s
+
+The \fIconst char *\fR argument is expected to be a pointer to a character array (pointer to a string). Characters from the array are written starting from the first element of the array and ending at, but not including, the terminating null byte ('\\0').
+
+.B S
+
+Identical to the \fBS\fR conversion specifier, except any non-printable characters in the array (ie. characters with an ASCII value < 32 or >= 127) are written as \fB\\x\fR followed by the ASCII code value in hexadecimal (upper case, two characters).
+
+.B r
+
+Identical to the \fBs\fR conversion specifier, except characters from the array are written in reverse, starting from (but not including) the terminating null byte ('\\0') and ending at the first element of the array.
+
+.B R
+
+Identical to the \fBs\fR conversion specifier, except each character of the array is converted to its corresponding character in ROT13 before breing written.
+
+.B p
+
+The address of the argument is written. The address is written in hexadecimal with a leading \fI0x\fR.
+
+.B %
+
+A '%' is written. No argument is converted. The complete conversion specification is '%%'.
+
 .SH BUGS
-Bugs...
+Code such as \fB_printf(\fIfoo\fB);\fR possibly indicates a bug, since \fIfoo\fR may contain a % character.
+
+.SH EXAMPLE
+
+To print the address of Holberton School in the form "972 Mission St., San Francisco, CA 94103", followed by a new line, where \fIstreet\fR, \fIcity\fR, and \fIstate\fR are pointers to strings:
+
+.RS
+#include "main.h"
+
+int main(void)
+
+char *street = "Mission St.", *city = "San Francisco", *state = "CA";
+
+printf("%d %s, %s, %s, %d\\n", 972, street, city, state, 94103);
+.RE
+
 .SH SEE ALSO
-.I write(2), printf(3)
+printf(3)
+
+The \fB_printf()\fR function emulates functionality of the C standard library function \fBprintf()\fR. This man page borrows from the corresponding Linux man page printf(3).
 .SH AUTHOR
-Melissa Ng and Cody Paral
+Aaron Will Djaba and Seiyefa Abornyuie
